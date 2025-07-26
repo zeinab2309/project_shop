@@ -1,0 +1,12 @@
+<div class="
+">
+    {% with item_count=cart|length %}
+    <a href="#" class="cart-link">
+        <div class="cart-info-container">
+            <span class="cart-icon">سبد خرید</span>
+            <span class="cart-info"></span>
+                <span class="item-count">5</span>items, <span class="total-price">{{ cart.get_total_price }}</span>
+        </div>
+    </a>
+    {% endwith %}
+</div>
