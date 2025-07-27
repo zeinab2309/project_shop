@@ -15,9 +15,10 @@ class Cart:
     def add(self, product):
         product_id=str(product.id)
         if product_id not in self.cart:
-            self.cart[product_id]={'quantity':1, 'new_price':product.new_price,'weight':product.weight}
+            self.cart[product_id]={'quantity':1, 'price':product.new_price,'weight':product.weight}
         else:
-            self.cart[product_id]['quantity']+=1
+            if self.cart[product_id]['quantity']<product.inventory:
+                self.cart[product_id]['quantity']+=1
         self.save()
 
     def decrease(self, product):
@@ -45,9 +46,11 @@ class Cart:
         else:
             return 50000
 
-    def total_price(self):
-        price=sum(item['quantity']*item['quantity']for item in self.cart.values())
+    def get_total_price(self):
+        price=sum(item['price']*item['quantity']for item in self.cart.values())
         return price
+    def get_final_price(self):
+        return self.get_total_price()+self.get_post_price()
 
     def __len__(self):
         return sum(item['quantity']for item in self.cart.values())
@@ -59,6 +62,7 @@ class Cart:
         for product in products:
             cart_dict[str(product.id)]['product']=product
         for item in cart_dict.values():
+            item['total']=item['price']*item['quantity']
             yield item
 
     def save(self):
