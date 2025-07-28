@@ -1,5 +1,3 @@
-from lib2to3.fixes.fix_input import context
-
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
 from shop.models import Product
