@@ -14,7 +14,7 @@ def add_to_cart(request, product_id):
         cart.add(product)
         context={
             'item_count': len(cart),
-            'total_price': cart.get_total_price()
+            'total_price': cart.get_total_price(),
         }
         return JsonResponse(context)
     except:
