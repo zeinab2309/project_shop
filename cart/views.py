@@ -1,5 +1,9 @@
+from http.client import responses, HTTPException
+
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
+from kavenegar import *
+
 from shop.models import Product
 from .cart import Cart
 from django.http import JsonResponse
@@ -16,6 +20,22 @@ def add_to_cart(request, product_id):
             'item_count': len(cart),
             'total_price': cart.get_total_price(),
         }
+        #-----------------------
+        try:
+            api=KavenegarAPI('4D597A707341464C394F4E7075534D65364364484A61576A2F313054705173594A2F4A474738567A7541413D')
+            params={
+                'sender': '2000660110',
+                'receptor':'09963140715',
+                'message':f' محصول {str(product)} به سبد خرید اضافه شد. ',
+            }
+            response=api.sms_send(params)
+            print(response)
+        except APIException as e:
+            print(e)
+        except HTTPException as e:
+            print(e)
+
+        #------------------------
         return JsonResponse(context)
     except:
         return JsonResponse({"error":"Invalid request."})
