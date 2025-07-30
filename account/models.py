@@ -1,7 +1,7 @@
-from codecs import replace_errors
-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
+from django.utils import timezone
+
 # Create your models here.
 
 class ShopUserManager(BaseUserManager):
@@ -34,6 +34,7 @@ class ShopUser(AbstractBaseUser,PermissionsMixin):
     address=models.TextField()
     is_active = models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
+    date_joined=models.DateTimeField(default=timezone.now)
 
     objects=ShopUserManager()
 
