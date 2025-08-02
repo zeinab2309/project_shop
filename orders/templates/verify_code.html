@@ -1,0 +1,12 @@
+<h2>بررسید  کد تایید</h2>
+{% for message in messages %}
+    <div>
+        {{ message }}
+    </div>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="text", name="code" placeholder="کد تایید را وارد کنید">
+    <button type="submit">تایید کد</button>
+</form>
