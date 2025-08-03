@@ -12,3 +12,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name','last_name','phone','address','postal_code','province','city','paid','created','updated']
     list_filter = ['paid','created','updated']
     inlines = [OrderItemInline]
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['product',]
+

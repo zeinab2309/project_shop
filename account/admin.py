@@ -1,5 +1,3 @@
-from lib2to3.pgen2.tokenize import group
-
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.admin import UserAdmin
