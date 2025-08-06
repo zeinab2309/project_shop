@@ -22,12 +22,13 @@
                     <p> قیمت هر محصول: <span> {{ item.price }}</span></p>
                     <p> قیمت کل: <span id="item-total-{{ item.product.id }}"> {{ item.total }}</span></p>
                 </div>
+                <div class="actions">
+                    <div class="quantity-add">+</div>
+                    <div class="quantity-decrease">-</div>
+                    <div class="quantity-remove">حذف</div>
+                </div>
             </div>
-            <div class="actions">
-                <div class="quantity-add">+</div>
-                <div class="quantity-decrease">-</div>
-                <div class="quantity-remove">حذف</div>
-            </div>
+
         {% endfor %}
     <div class="total-price">
         <p> قیمت کل: <span id="item-total-price"> {{ cart.get_total_price }}</span>تومان</p>

@@ -43,9 +43,7 @@ def update_quantity(request):
         context={
             'item_count': len(cart),
             'total_price': cart.get_total_price(),
-
             'quantity':cart.cart['item_id']['quantity'],
-            # 'price':cart.cart[item_id]['price'],
             'total':cart.cart[item_id]['quantity']*cart.cart[item_id]['price'],
             'final_price':cart.get_final_price(),
             'success':True,
