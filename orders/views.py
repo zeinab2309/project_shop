@@ -9,7 +9,6 @@ from .forms import PhoneVerificationForm
 from .models import Order, OrderItem
 from cart.cart import Cart
 from django.contrib.auth.decorators import login_required
-
 from django.conf import settings
 from django.shortcuts import redirect
 from django.http import HttpResponse
@@ -99,7 +98,7 @@ def send_request(request):
     order=Order.objects.get(id=request.session['order_id'])
     description=""
     for item in order.items.all():
-        description+=item.prosuct.name +", "
+        description+=item.product.name +", "
     data = {
         "MerchantID": settings.MERCHANT,
         "Amount": order.get_final_cost(),
@@ -149,12 +148,24 @@ def verify(request):
                     item.product.save()
                 order.paid=True
                 order.save()
-                return HttpResponse(f'successful , RefID: {reference_id}')
+                return render(request,'payment_tracking.html',
+                              {"success":True, 'RefID':reference_id,"order_id":order.id})
             else:
-                return HttpResponse('Error')
+                return render(request, 'payment_tracking.html',
+                              {"success":False})
         del request.session['order_id']
         return HttpResponse('response failed')
     except requests.exceptions.Timeout:
         return HttpResponse('Timeout Error')
     except requests.exceptions.ConnectionError:
         return HttpResponse('Connection Error')
+
+
+def orders_list(request):
+    user=request.user
+    orders=Order.objects.filter(buyer=user)
+    return render(request, 'orders_list.html', {'orders':orders})
+
+def order_detail(request, id):
+    order=Order.objects.get(id=id)
+    return render(request,'order_detail.html',{'order':order})
