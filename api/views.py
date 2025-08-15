@@ -1,5 +1,5 @@
 from shop.models import Product
-from serializers import ProductSerializer
+from .serializers import ProductSerializer
 from rest_framework import generics
 
 #هدفمون اینه یک سری ابجکت های مدل پروداکت ک محصولات هست را بین دو تا وبسایت منتقل کنیم باید
