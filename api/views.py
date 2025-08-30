@@ -1,7 +1,6 @@
-from tkinter.constants import FIRST, FALSE
-
+from orders.models import Order
 from shop.models import Product
-from .serializers import ProductSerializer,ShopUserSerializer,UserRegistrationSerializer
+from .serializers import *
 from rest_framework import generics
 from rest_framework import views
 from account.models import ShopUser
@@ -10,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.authentication import BasicAuthentication
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from permissions import IsAdminTabriz,IsBuyer
 # class ProductListAPIView(generics.ListAPIView):
 #     queryset = Product.objects.all()
 #     serializer_class = ProductSerializer
@@ -46,3 +46,14 @@ class UserRegistrationAPIView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     queryset = ShopUser.objects.all()
     serializer_class = UserRegistrationSerializer
+
+class OrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsAdminTabriz]
+
+
+class OrderDetailAPIView(generics.RetrieveAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsBuyer]

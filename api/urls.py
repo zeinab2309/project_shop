@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
@@ -10,6 +12,8 @@ urlpatterns=[
     # path('product/<pk>',views.ProductDetailAPIView.as_view() ,name='products_detail_api'),
 
     path('users/',views.UserListAPIView.as_view(),name='users_list_api'),
-    path('register/',views.UserRegistrationSerializer.as_view(),name='register_api'),
+    path('register/',views.UserRegistrationAPIView.as_view(),name='register_api'),
     path('',include(router.urls)),
+    path('orders/', views.OrderListAPIView.as_view(), name='orders_list_api'),
+    path('orders/<int:pk>/', views.OrderDetailAPIView.as_view(), name='order_detail_api'),
 ]
